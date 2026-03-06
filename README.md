@@ -32,7 +32,7 @@ This is not configured for reproducible builds; the build operating system in th
 
 ### Target Distribution to build for
 
-The default base image is `debian:trixie`, but any more or less any recent debianesque distribution (e.g. `debian:bookworm`, `ubuntu:jammy`, or `ubuntu:noble`) should work fine.  Convenient if not all your systems are on the same operating system version at all times.
+The default base image in the [Containerfile](https://github.com/7h145/deb-niri/blob/main/Containerfile), is `debian:trixie`, but any more or less recent debianesque distribution (e.g. `debian:bookworm`, `ubuntu:jammy`, or `ubuntu:noble`) should work fine.  Convenient if you want to cross build for another distribution, e.g. if not all your systems are on the same distribution or version.
 
 ### Container Runtime
 
