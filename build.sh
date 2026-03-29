@@ -11,18 +11,14 @@ cleanup() {
 }
 
 ARGV=(
-  # decisions, decisions.  Default is 'missing'.
-  #'--pull=always'
-  #'--pull=never'
-
-  # build the 'artifact' stage
-  '--target=artifact'
+  # build the 'artifacts' stage
+  '--target=artifacts'
 
   # export files to $PWD
-  '--output' "type=local,dest=${PWD}/artifact"
+  '--output' "type=local,dest=${PWD}/artifacts"
 )
 
-mkdir -vp artifact
+mkdir -vp artifacts
 podman build ${ARGV:+"${ARGV[@]}"} "${@}" "${0%/*}"
 
 #cleanup

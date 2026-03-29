@@ -8,7 +8,7 @@ Have a look at the very simple [`build.sh` script](https://github.com/7h145/deb-
 
     build.sh
 
-This will build the [Containerfile](https://github.com/7h145/deb-niri/blob/main/Containerfile), downloading the Debian image, configuring the build environment with all dependencies and then build the latest niri cloned from the https://github.com/niri-wm/niri repository.  The `niri_*.deb` Debian package will end up in the `artifact` directory (on the host).
+This will build the [Containerfile](https://github.com/7h145/deb-niri/blob/main/Containerfile), downloading the Debian image, configuring the build environment with all dependencies and then build the latest niri cloned from the https://github.com/niri-wm/niri repository.  The `niri_*.deb` Debian package will end up in the `artifacts` directory (on the host).
 
 After the build process, the intermediate layers as well as the build cache will remain on the host, subsequent re-builds will be considerably faster.  Use something like `podman builder prune; podman image prune` to get rid of all this stuff (same for `docker`).
 
@@ -16,7 +16,7 @@ After the build process, the intermediate layers as well as the build cache will
 
 After `build.sh`, install the freshly build `niri_*.deb` via `dpkg -i`, then pull missing dependencies afterwards with `apt install -f`.
 
-    dpkg -i artifact/debian/niri_*.deb
+    dpkg -i artifacts/debian/niri_*.deb
     apt install -f
 
 Remark: As of 2026-02-27, niri-25.11: niri needs `libseat.so.1` but the `libseat1` package is not flagged as a dependency in the `niri_*.deb`.  Just `apt install libseat1`.

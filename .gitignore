@@ -1,4 +1,4 @@
 # gitignore(5)
 
-artifact
+artifacts
 .hsync.filter

@@ -92,7 +92,7 @@ RUN \
   && cd niri && cargo deb
 
 
-FROM scratch AS artifact
+FROM scratch AS artifacts
 
 COPY --from=build /build/niri/target/debian /
 
