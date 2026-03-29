@@ -10,7 +10,18 @@ Have a look at the very simple [`build.sh` script](https://github.com/7h145/deb-
 
 This will build the [Containerfile](https://github.com/7h145/deb-niri/blob/main/Containerfile), downloading the Debian image, configuring the build environment with all dependencies and then build the latest niri cloned from the https://github.com/niri-wm/niri repository.  The `niri_*.deb` Debian package will end up in the `artifacts` directory (on the host).
 
-After the build process, the intermediate layers as well as the build cache will remain on the host, subsequent re-builds will be considerably faster.  Use something like `podman builder prune; podman image prune` to get rid of all this stuff (same for `docker`).
+After the build process, the build layers and cache are kept on the host; subsequent builds will be considerably faster.  If you want to reclaim disk space, use
+
+    podman builder prune
+    podman image prune
+
+to remove unused build cache and dangling images (equivalent commands are available for `docker`).
+
+If you want a fully fresh rebuild, use:
+
+    build.sh --no-cache --pull=always
+
+`--no-cache` disables layer reuse, and `--pull=always` refreshes the base image before building.
 
 ## Installing niri
 
