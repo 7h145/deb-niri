@@ -27,7 +27,7 @@ If you want a fully fresh rebuild, use:
 
 After `build.sh`, install the freshly build `niri_*.deb` via `dpkg -i`, then pull missing dependencies afterwards with `apt install -f`.
 
-    dpkg -i artifacts/debian/niri_*.deb
+    dpkg -i artifacts/niri_*.deb
     apt install -f
 
 Remark: As of 2026-02-27, niri-25.11: niri needs `libseat.so.1` but the `libseat1` package is not flagged as a dependency in the `niri_*.deb`.  Just `apt install libseat1`.
