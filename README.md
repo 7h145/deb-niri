@@ -36,10 +36,11 @@ Remark: As of 2026-02-27, niri-25.11: niri needs `libseat.so.1` but the `libseat
 
 ### Reproducibility or Latest and Greatest
 
-This is not configured for reproducible builds; the build operating system in the container will be updated and the niri source code will get pulled from the latest commit. For reproducible builds:
+This is not configured for reproducible builds; the build operating system in the container will be updated and the niri source code will get pulled from the latest commit.  For somewhat more reproducible builds, start with:
 * fix the base image version,
 * remove the `apt-get update && apt-get upgrade`, and
 * fix the git checkout to the commit of your choice.
+This will still leave the interesting problem of reproducible rust builds.
 
 ### Target Distribution to build for
 
