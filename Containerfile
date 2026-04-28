@@ -95,8 +95,10 @@ RUN \
   && rustup default stable \
   && cargo install cargo-deb
 
-# this is niri 25.11.0 as of 2026-02-27
-#ARG PAYLOAD_REF="2dc6f4482c4eeed75ea8b133d89cad8658d38429"
+# niri release v25.11.0 from 2025-11-29
+#ARG PAYLOAD_REF="b35bcae35b3f9665043c335e55ed5828af77db85"
+# niri release v26.04.0 from 2026-04-25
+#ARG PAYLOAD_REF="8ed0da44d974c32c6877d2f4630c314da0717ecb"
 
 RUN true \
   && git clone --depth 1 https://github.com/niri-wm/niri
