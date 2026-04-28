@@ -40,6 +40,7 @@ This is not configured for reproducible builds; the build operating system in th
 * fix the base image version,
 * remove the `apt-get update && apt-get upgrade`, and
 * fix the git checkout to the commit of your choice.
+
 This will still leave the interesting problem of reproducible rust builds.
 
 ### Target Distribution to build for
