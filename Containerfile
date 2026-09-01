@@ -17,7 +17,8 @@ FROM debian:trixie-slim AS base
 RUN true \
   && echo 'debconf debconf/frontend select Noninteractive' |debconf-set-selections \
   && dpkg-reconfigure --frontend noninteractive debconf \
-  && apt-get update && apt-get -y upgrade \
+  && apt-get update \
+  && apt-get -y upgrade \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
     iproute2 \
@@ -25,6 +26,7 @@ RUN true \
 
 # basic tooling
 RUN true \
+  && apt-get update \
   && apt-get install -y --no-install-recommends \
     build-essential \
     devscripts \
@@ -57,6 +59,7 @@ FROM base AS build
 # as a stand-in in order to avoid diverging code below.
 
 RUN true \
+  && apt-get update \
   && apt-get install -y --no-install-recommends rustup \
   && install -Dv /dev/null ${HOME}/.cargo/env \
   || curl -sSf https://sh.rustup.rs |sh -s -- -y
@@ -65,6 +68,7 @@ RUN true \
 #  https://niri-wm.github.io/niri/Getting-Started.html#building
 
 RUN true \
+  && apt-get update \
   && apt-get install -y --no-install-recommends \
     clang \
     libdbus-1-dev \
@@ -95,25 +99,29 @@ RUN \
   && rustup default stable \
   && cargo install cargo-deb
 
-# niri release v25.11.0 from 2025-11-29
-#ARG PAYLOAD_REF="b35bcae35b3f9665043c335e55ed5828af77db85"
-# niri release v26.04.0 from 2026-04-25
-#ARG PAYLOAD_REF="8ed0da44d974c32c6877d2f4630c314da0717ecb"
+# default: canonical niri-wm/niri
+ARG REPO='https://github.com/niri-wm/niri'
+
+# this layer should normally remain cached
+#RUN git clone --no-checkout "${REPO}" /build
+RUN git clone --depth 1 --no-checkout "${REPO}" /build
+
+# default: niri release v26.04.0 from 2026-04-25
+ARG COMMIT='8ed0da44d974c32c6877d2f4630c314da0717ecb'
 
 RUN true \
-  && git clone --depth 1 https://github.com/niri-wm/niri
-  #&& git clone https://github.com/niri-wm/niri \
-  #&& cd niri && git checkout "${PAYLOAD_REF}"
+  && git fetch origin '+refs/*:refs/remotes/all/*' \
+  && git checkout --detach "${COMMIT}"
 
 RUN \
   --mount=type=cache,target=/usr/local/cargo/registry \
   --mount=type=cache,target=/usr/local/cargo/git \
   true \
   && . ${HOME}/.cargo/env \
-  && cd niri && cargo deb
+  && cargo deb
 
 
 FROM scratch AS artifacts
 
-COPY --from=build /build/niri/target/debian /
+COPY --from=build /build/target/debian /
 
