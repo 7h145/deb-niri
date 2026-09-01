@@ -1,6 +1,6 @@
 #!/bin/bash
 # vim:et:ai:sw=2:tw=0:ft=bash
-# copyright 2026 <github.attic@typedef.net>, CC BY 4.0
+# copyright 2026 <github.attic@typedef.net>, MIT
 
 REPO='https://github.com/niri-wm/niri'
 

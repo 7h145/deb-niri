@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# copyright 2026 <github.attic@typedef.net>, CC BY 4.0
+# copyright 2026 <github.attic@typedef.net>, MIT
 
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
